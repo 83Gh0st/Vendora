@@ -1,11 +1,11 @@
-# Vendora — Point of Sale
+# Vendora - Point of Sale
 
 An offline-first Android Point of Sale (POS) and inventory management app for
 local shops. Built with **Jetpack Compose**, **Room Database**, and
-**Supabase** (database + storage only — no Supabase Auth), tuned to run
+**Supabase** (database + storage only - no Supabase Auth), tuned to run
 smoothly on lower-tier devices with zero-friction barcode scanning.
 
-Formerly "Dukaan POS" — rebranded to **Vendora**, with a fully custom
+Formerly "Dukaan POS" - rebranded to **Vendora**, with a fully custom
 phone-number-and-password account system and a refreshed, animated UI
 throughout.
 
@@ -13,19 +13,19 @@ throughout.
 
 ## 🚀 Key Features
 
-### 1. Accounts, Shops & Employees — fully custom, no Supabase Auth
-- **Phone number + password**, nothing else — no email anywhere, no OTP, no
+### 1. Accounts, Shops & Employees - fully custom, no Supabase Auth
+- **Phone number + password**, nothing else - no email anywhere, no OTP, no
   SMS cost, ever. Supabase's own Phone auth provider actually can't be
   turned on without configuring a paid SMS gateway first (even with phone
   confirmation disabled), so Vendora doesn't use Supabase Auth *at all*.
   Registration, login, and session handling are done through a handful of
-  custom Postgres functions instead (see `supabase/schema.sql`) — zero
+  custom Postgres functions instead (see `supabase/schema.sql`) - zero
   Supabase dashboard configuration required beyond running that one script.
 - **One combined sign-up, not a multi-screen gate**: an owner enters phone +
-  password, then shop details (name, owner name, address, optional GST —
+  password, then shop details (name, owner name, address, optional GST -
   never required), then uploads one verification item (shopfront photo,
   business document, or a photo of themselves at the shop). The account is
-  only actually created at the very end, once all of that is in — there's
+  only actually created at the very end, once all of that is in - there's
   no half-finished "signed in but nothing set up yet" state.
 - **Employees join with a permanent code, no SMS needed**: the owner gets a
   6-character shop code from Settings and shares it however they like. An
@@ -44,8 +44,8 @@ throughout.
 An in-app **CameraX + Google ML Kit Barcode Scanning** pipeline, tuned for
 budget Android devices (3GB+ RAM, Android 8.0+):
 - **Fixed 720p Resolution** to minimize CPU/GPU load and heat.
-- **10 FPS Rate Limiter** — analyzes at most one frame every 100ms.
-- **Memory-Safe Frame Release** — closes `ImageProxy` frames immediately to
+- **10 FPS Rate Limiter** - analyzes at most one frame every 100ms.
+- **Memory-Safe Frame Release** - closes `ImageProxy` frames immediately to
   avoid Out-of-Memory crashes.
 - **1200ms Duplicate Debounce** to ignore accidental repeat scans.
 
@@ -59,7 +59,7 @@ budget Android devices (3GB+ RAM, Android 8.0+):
 
 ### 4. Inventory & Stock Management
 - Add products with barcode, selling price, unit (`pcs`, `kg`, `ltr`, etc.),
-  and stock — with low-stock highlighting.
+  and stock - with low-stock highlighting.
 - Automatic stock decrement on each sale.
 
 ### 5. Khata (Customer Ledger)
@@ -75,7 +75,7 @@ budget Android devices (3GB+ RAM, Android 8.0+):
 
 - **Rebrand**: app id `com.dukaan.pos` → `com.vendora.app`, app name, launcher
   icon, splash screen, local DB name, and generated file names all updated.
-- **Firebase removed, Supabase added — but not Supabase Auth**: the old
+- **Firebase removed, Supabase added - but not Supabase Auth**: the old
   Firebase Realtime Database backup was replaced with Supabase Postgres +
   Storage for data and file uploads, but authentication is 100% custom
   (see "Accounts" above and `supabase/schema.sql`) rather than using
@@ -102,9 +102,9 @@ budget Android devices (3GB+ RAM, Android 8.0+):
 
 - **UI Framework**: Jetpack Compose (Material 3) with a shared motion system
 - **Local Database**: Room (offline-first source of truth)
-- **Cloud Backend**: Supabase — `postgrest-kt` for data + RPC calls,
+- **Cloud Backend**: Supabase - `postgrest-kt` for data + RPC calls,
   `storage-kt` for verification photo/document uploads. **No `auth-kt`, no
-  Supabase Auth** — see the security note below.
+  Supabase Auth** - see the security note below.
 - **Camera Pipeline**: Jetpack CameraX & Google ML Kit Barcode Scanning
 - **Image Loading**: Coil 3, for the verification-photo preview
 - **Build System**: Gradle 8.13 with the Gradle Wrapper included
@@ -114,11 +114,11 @@ Supabase Auth (even just its free Email provider) is what normally lets Row
 Level Security automatically keep one shop's data invisible to another,
 because RLS checks the identity in a cryptographically-signed session token
 that Supabase itself issues. Since Vendora doesn't use Supabase Auth at all,
-that automatic protection isn't available — so instead:
+that automatic protection isn't available - so instead:
 - **Every real table** (`shops`, `shop_accounts`, `products`, `sales`) has
   Row Level Security **enabled with zero policies attached**, meaning the
   standard Postgrest REST endpoints for these tables always return nothing
-  / accept nothing, for anyone, always — direct table access is a dead end
+  / accept nothing, for anyone, always - direct table access is a dead end
   by design.
 - **All actual reads/writes go through Postgres functions** (`register_shop`,
   `login_shop_account`, `get_products`, `replace_products`, etc.) that
@@ -137,7 +137,7 @@ that automatic protection isn't available — so instead:
   UUIDs, not guessable, but the bucket isn't locked down by identity.
 
 None of this is unusual for a small-scale app built this way, but it's a
-real, deliberate trade-off against Supabase's built-in security — go in
+real, deliberate trade-off against Supabase's built-in security - go in
 with eyes open, especially if this app ever handles more sensitive data.
 
 ---
@@ -150,12 +150,12 @@ with eyes open, especially if this app ever handles more sensitive data.
 2. Open **SQL Editor → New query**, paste the contents of
    [`supabase/schema.sql`](supabase/schema.sql), and run it. This creates
    every table, function, and the `shop-verification` Storage bucket.
-   **That's it — no Authentication dashboard configuration at all.**
+   **That's it - no Authentication dashboard configuration at all.**
 3. Open **Project Settings → API** and copy your **Project URL** and
    **anon / publishable key**.
 
 ### 2. Reviewing shop verifications
-There's no admin dashboard built for this yet — review happens directly in
+There's no admin dashboard built for this yet - review happens directly in
 Supabase:
 1. **Table Editor → shops**: see every shop's `verification_status`
    (`pending` / `verified` / `rejected`), `verification_method`, and
@@ -167,7 +167,7 @@ Supabase:
    `verified` or `rejected` once you've checked it.
 
 ### 3. Configure the Android project
-Copy `local.properties.example` to `local.properties` (same folder) — Android
+Copy `local.properties.example` to `local.properties` (same folder) - Android
 Studio usually creates `local.properties` for you already with `sdk.dir` set,
 so just add these two lines to your existing file:
 
