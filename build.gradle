@@ -1,0 +1,15 @@
+buildscript {
+    ext.kotlin_version = '2.4.10'
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.13.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:compose-compiler-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+        // Firebase's google-services plugin has been removed.
+        // Vendora now uses Supabase for auth + cloud storage instead of Firebase.
+    }
+}

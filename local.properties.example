@@ -1,0 +1,12 @@
+# Copy this file to "local.properties" (same folder) and fill in your own
+# values. local.properties is already git-ignored, so your keys never get
+# committed.
+#
+# sdk.dir is normally added automatically by Android Studio the first time
+# you open the project — you don't need to set it by hand.
+
+# sdk.dir=/path/to/your/Android/sdk
+
+# From your Supabase project: Project Settings > API
+SUPABASE_URL=https://your-project-ref.supabase.co
+SUPABASE_ANON_KEY=your-anon-public-key

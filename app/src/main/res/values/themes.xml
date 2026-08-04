@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base app theme. Compose's own MaterialTheme (VendoraTheme in Theme.kt)
+         takes over all real styling; this just needs to exist for the
+         manifest and to host the splash-screen hand-off below. -->
+    <style name="Theme.Vendora" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- Shown for the brief moment before Compose draws its first frame.
+         windowSplashScreenAnimatedIcon is our monoline "V" mark; the
+         background is the deep indigo from the Vendora palette. -->
+    <style name="Theme.Vendora.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_vendora_splash</item>
+        <item name="postSplashScreenTheme">@style/Theme.Vendora</item>
+    </style>
+</resources>

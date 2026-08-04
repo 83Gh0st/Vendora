@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Vendora brand palette (mirrored in ui/theme/Color.kt for Compose) -->
+    <color name="vendora_primary">#6366F1</color>
+    <color name="vendora_primary_dark">#4F46E5</color>
+    <color name="vendora_accent">#F43F5E</color>
+    <color name="splash_background">#0F172A</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
